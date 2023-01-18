@@ -367,183 +367,33 @@ files:
       };
     }
   learner_created: false
-- name: src/account/repos/UserRepository.java
+- name: src/account/user/User.java
   visible: true
-  text: |
-    package account.repos;
-
-    import account.models.User;
-    import org.springframework.data.jpa.repository.JpaRepository;
-    import org.springframework.stereotype.Repository;
-
-
-    @Repository
-    public interface UserRepository extends JpaRepository<User, Long> {
-        boolean existsByEmail(String email);
-        User findByEmail(String email);
-    }
   learner_created: true
-- name: src/account/security/SecurityConfiguration.java
+- name: src/account/user/UserDetailsImpl.java
   visible: true
-  text: |
-    package account.security;
-
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-    import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-    import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-    import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-    import org.springframework.security.core.userdetails.UserDetailsService;
-
-    @EnableWebSecurity
-    public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-        @Autowired
-        UserDetailsService userDetailsService;
-
-        @Autowired
-        void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-            auth.userDetailsService(userDetailsService);
-        }
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.httpBasic()
-                    .and()
-                    .csrf().disable()
-                    .headers().frameOptions().disable()
-                    .and()
-                    .authorizeRequests()
-                    .antMatchers("/api/auth/signup/", "/actuator/shutdown").permitAll()
-                    .anyRequest().authenticated();
-
-        }
-
-    }
   learner_created: true
-- name: src/account/controllers/AccountController.java
+- name: src/account/controllers/UserController.java
   visible: true
-  text: |
-    package account.controllers;
-    import account.models.User;
-    import account.repos.UserRepository;
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.http.HttpStatus;
-    import org.springframework.http.ResponseEntity;
-    import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-    import org.springframework.web.bind.annotation.PostMapping;
-    import org.springframework.web.bind.annotation.RequestBody;
-    import org.springframework.web.bind.annotation.RequestMapping;
-    import org.springframework.web.bind.annotation.RestController;
-    import org.springframework.web.server.ResponseStatusException;
-
-    import javax.validation.Valid;
-    import javax.validation.constraints.NotNull;
-
-    @RestController
-    //@RequestMapping("/api")
-    public class AccountController {
-        @Autowired
-        private UserRepository userRepository;
-        @PostMapping("/api/auth/signup/")
-        public ResponseEntity<?> registerUser(@RequestBody @Valid @NotNull User user) {
-            if (userRepository.existsByEmail(user.getEmail())) {
-                //throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-                return ResponseEntity.status(HttpStatus.OK).body(userRepository.findByEmail(user.getEmail()));
-            }
-            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-            userRepository.save(user);
-            return ResponseEntity.status(HttpStatus.OK).body(user);
-        }
-    }
   learner_created: true
-- name: src/account/models/User.java
+- name: src/account/security/SecurityConfig.java
   visible: true
-  text: |
-    package account.models;
-
-    import com.fasterxml.jackson.annotation.JsonProperty;
-    import org.springframework.security.core.GrantedAuthority;
-    import org.springframework.security.core.userdetails.UserDetails;
-
-    import javax.persistence.*;
-    import javax.validation.constraints.NotEmpty;
-    import javax.validation.constraints.Pattern;
-    import java.util.Collection;
-
-    @Entity
-    @Table(name="User")
-    public class User {
-        @Id
-        @Column(name="id")
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-        private Long id;
-        @NotEmpty
-        private String name;
-        @NotEmpty
-        private String lastname;
-        @Column(nullable = false, unique = true)
-        @Pattern(regexp = "^\\w+([-+.']\\w+)*@acme\\.com")
-        private String email;
-        @NotEmpty
-        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-        private String password;
-
-        public User(){}
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public String getLastname() {
-            return lastname;
-        }
-
-        public void setLastname(String lastname) {
-            this.lastname = lastname;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public Long getId() {
-            return id;
-        }
-
-        public void setId(Long id) {
-            this.id = id;
-        }
-    }
   learner_created: true
 - name: src/account/security/RestAuthenticationEntryPoint.java
   visible: true
   learner_created: true
+- name: src/account/repos/UserRepository.java
+  visible: true
+  learner_created: true
+- name: src/account/services/UserService.java
+  visible: true
+  learner_created: true
+- name: src/account/services/UserDetailsServiceImpl.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/16602#comment
-status: Failed
+status: Solved
 feedback:
-  message: |-
-    Wrong answer in test #18
-
-    Get /api/empl/payment should respond with status code 200, responded: 401
-    User must login!
-    Authentication with johndoe@acme.com / secret
-  time: Tue, 17 Jan 2023 21:25:15 UTC
+  message: Congratulations!
+  time: Wed, 18 Jan 2023 21:37:36 UTC
 record: -1

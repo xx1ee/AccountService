@@ -1,4 +1,4 @@
-package account.models;
+package account.dto;
 
 import java.util.List;
 import java.util.Set;

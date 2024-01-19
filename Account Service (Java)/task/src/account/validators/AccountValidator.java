@@ -1,9 +1,7 @@
 package account.validators;
 
 import account.models.User;
-import account.models.UserResponse;
 import account.repos.UserRepository;
-import account.util.UserExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

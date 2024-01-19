@@ -1,21 +1,14 @@
-package account.models;
+package account.dto;
 
-import jakarta.validation.constraints.NotBlank;
-
-public class GrantUser {
-    @NotBlank
+public class LockUser {
     String user;
-    @NotBlank
-    String role;
-    @NotBlank
     String operation;
 
-    public GrantUser() {
+    public LockUser() {
     }
 
-    public GrantUser(String user, String role, String operation) {
+    public LockUser(String user, String operation) {
         this.user = user;
-        this.role = role;
         this.operation = operation;
     }
 
@@ -25,14 +18,6 @@ public class GrantUser {
 
     public void setUser(String user) {
         this.user = user;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getOperation() {

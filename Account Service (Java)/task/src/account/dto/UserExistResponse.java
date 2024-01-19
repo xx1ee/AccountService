@@ -1,18 +1,26 @@
-package account.models;
+package account.dto;
 
-import org.springframework.http.HttpStatus;
-
-public class UserErrorResponse {
+public class UserExistResponse {
     private Long timestamp;
     private Integer status;
     private String error;
     private String path;
+    private String message;
 
-    public UserErrorResponse(Long timestamp, Integer httpStatus, String error, String path) {
+    public UserExistResponse(Long timestamp, Integer httpStatus, String error, String path, String message) {
         this.timestamp = timestamp;
         this.status = httpStatus;
         this.error = error;
         this.path = path;
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getError() {

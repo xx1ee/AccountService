@@ -1,4 +1,4 @@
-package account.models;
+package account.dto;
 
 public class UserUpdatedPasswordResponse {
     String email;

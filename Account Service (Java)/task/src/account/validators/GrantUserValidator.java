@@ -1,12 +1,11 @@
 package account.validators;
 
-import account.models.GrantUser;
+import account.dto.GrantUser;
 import account.models.Role;
 import account.services.UserService;
 import account.util.UserExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

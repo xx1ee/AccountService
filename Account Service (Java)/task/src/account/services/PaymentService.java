@@ -1,12 +1,11 @@
 package account.services;
 
 import account.models.Payment;
-import account.models.PaymentRequest;
-import account.models.PaymentResponse;
+import account.dto.PaymentRequest;
+import account.dto.PaymentResponse;
 import account.repos.PaymentRepository;
 import account.repos.UserRepository;
 import account.util.UserExistException;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,5 +1,7 @@
-package account.models;
+package account.dto;
 
+import account.models.Payment;
+import account.models.User;
 import account.repos.PaymentRepository;
 import account.repos.UserRepository;
 import account.services.PaymentService;

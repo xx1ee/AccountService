@@ -1,8 +1,8 @@
 package account.validators;
 
 import account.models.Payment;
-import account.models.PaymentRequest;
-import account.models.PaymentResponse;
+import account.dto.PaymentRequest;
+import account.dto.PaymentResponse;
 import account.services.PaymentService;
 import account.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package account.models;
+package account.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.GeneratedValue;
